@@ -2,12 +2,31 @@
 {% block body %}
     <div class="container">
         <div class="row content">
+            {% for message in app.flashes('notice') %}
+                <div class='alert alert-info'>
+                    {{ message }}
+                </div>
+            {% endfor %}
             <h2>List Category</h2>
-            <ul class="list-group text-left">
-                {% for categorie in categories %}
-                    <li class="list-group-item"> Name: {{ categorie.name }}  </li>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th> Action </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for categorie in categories  %}
+                    <tr>
+                        <td>{{ categorie.name }}</td>
+                        <td>
+                            <a class="btn btn-primary" style="margin-top: 0px !important;" href="{{ url('editcategory', {'categoryId': categorie.id  }) }}"><span class="glyphicon glyphicon-edit"></span>Edit</a>
+                            <a class="btn btn-danger" style="margin-top: 0px !important;" href="{{ url('delete', {'id': categorie.id  }) }}"><span class="glyphicon glyphicon-remove"></span>Delete</a>
+                        </td>
+                    </tr>
                 {% endfor %}
-            </ul>
+                </tbody>
+            </table>
 
             <div class="starter-template">
                 <h1>Create category</h1>
@@ -15,7 +34,7 @@
             <ul class="well">
                 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                 {{ form_row(form.name, {'attr': {'class': 'form-control', 'placeholder':'Name category'}}) }}
-                {{ form_row(form.save, {'attr': {'class': 'btn btn-success'}}) }}
+                {{ form_row(form.save, {'attr': {'class': 'btn btn-success'}})|raw }}
                 {{ form_end(form) }}
             </ul>
         </div>
