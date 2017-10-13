@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row content">
+            <h2>List Category</h2>
+            <ul class="list-group text-left">
+                {% for categorie in categories %}
+                    <li class="list-group-item"> Name: {{ categorie.name }}  </li>
+                {% endfor %}
+            </ul>
+
+            <div class="starter-template">
+                <h1>Create category</h1>
+            </div>
+            <ul class="well">
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                {{ form_row(form.name, {'attr': {'class': 'form-control', 'placeholder':'Name category'}}) }}
+                {{ form_row(form.save, {'attr': {'class': 'btn btn-success'}}) }}
+                {{ form_end(form) }}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
